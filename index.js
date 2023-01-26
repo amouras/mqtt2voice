@@ -90,7 +90,7 @@ function tratarTopicoMensagem(topico, mensagem){
     if ( topico==="zigbee2mqtt/Cubo" ){
         if ( mensagem.action === "shake"){
             console.log("shake");
-            //sshMandarVoz("Foi!");
+            sshMandarVoz("Ei!");
         }
     }
     if ( topico==="zigbee2mqtt/heimdall" ){
