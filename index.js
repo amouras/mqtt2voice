@@ -56,7 +56,7 @@ client.on('message',function(topic, message, packet){
 function sshMandarVoz(mensagemVoz){
     conn.on('ready', () => {
       console.log('Client :: ready');
-      conn.exec(`sleep 1 && espeak -k -50 -vpt-br '${mensagemVoz}'`, (err, stream) => {
+      conn.exec(`sleep 3 && espeak -k -50 -vpt-br '${mensagemVoz}'`, (err, stream) => {
         if (err) throw err;
         stream.on('close', (code, signal) => {
           console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
