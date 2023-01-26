@@ -71,8 +71,8 @@ function sshMandarVoz(mensagemVoz){
       host: '10.0.68.101',
       port: 22,
       username: 'pi',
-      password: process.env.SSH_PASSWORD
-      //password: 'xxxxxxxxx'
+      //password: process.env.SSH_PASSWORD
+      password: '283687283687'
     });
 }
 
