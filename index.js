@@ -50,17 +50,21 @@ client.on('message',function(topic, message, packet){
 });
 
 function sshMandarVoz(mensagemVoz){
+    const conn = new Client();
     conn.on('ready', () => {
       console.log('Client :: ready');
-      conn.exec(`sleep 3 && espeak -k -50 -vpt-br '${mensagemVoz}'`, (err, stream) => {
+      conn.exec(`sleep 1.8 && espeak -k -50 -vpt-br '${mensagemVoz}'`, (err, stream) => {
         if (err) throw err;
         stream.on('close', (code, signal) => {
           console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+          stream.close();
           conn.end();
         }).on('data', (data) => {
           console.log('STDOUT: ' + data);
+          conn.end();
         }).stderr.on('data', (data) => {
           console.log('STDERR: ' + data);
+          conn.end();
         });
       });
     }).connect({
@@ -69,6 +73,29 @@ function sshMandarVoz(mensagemVoz){
       username: 'pi',
       //password: process.env.SSH_PASSWORD
       password: '283687283687'
+    });
+}
+
+function sshMandarVoz2(mensagemVoz){
+    const conn = new Client();
+    conn.on('ready', function(err) {
+        conn.exec(`sleep 1.8 && espeak -k -50 -vpt-br '${mensagemVoz}'`, (err, stream) => {
+            if (err) return done(err);
+            var result;
+            stream.on('close', function(code, signal) {
+                console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+                conn.end();
+            }).on('data', function(data) {
+                let resultObject = JSON.parse(data);
+                console.log(resultObject);
+            });
+        });
+    }).connect({
+        host: '10.0.68.101',
+        port: 22,
+        username: 'pi',
+        //password: process.env.SSH_PASSWORD
+        password: '283687283687'
     });
 }
 
