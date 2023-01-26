@@ -1,7 +1,7 @@
 var mqtt = require('mqtt');
 const { Client } = require('ssh2');
 const conn = new Client();
-
+let fila = [];
 var UsuariosIDs = {
     0: "Anderson",
     1: "Jorge",
@@ -41,12 +41,8 @@ client.on("zigbee2mqtt/Cubo", function () {
     console.log("connected");
 })
 
-var topic_s="zigbee2mqtt/Cubo";
-var topic_list=["zigbee2mqtt/heimdall","topic3","topic4"];
-var topic_o={"topic22":0,"topic33":1,"topic44":1};
-client.subscribe(topic_s,{qos:1});
-client.subscribe(topic_list,{qos:1});
-client.subscribe(topic_o);
+var topic_list=["zigbee2mqtt/heimdall","zigbee2mqtt/Cubo"];
+client.subscribe(topic_list);
 
 client.on('message',function(topic, message, packet){
     let m = JSON.parse(message);
@@ -79,11 +75,24 @@ function sshMandarVoz(mensagemVoz){
 function tratarTopicoMensagem(topico, mensagem){
 	console.log("Tópico: "+ topico);
     console.log("Mensagem: "+ JSON.stringify(mensagem));
-    /*if ( topico==="zigbee2mqtt/Cubo" ){
+    
+    fila.push({"data":new Date(), "mensagem": mensagem});
+    if (fila.length > 1){
+        let acaoIgual = fila[fila.length - 1].mensagem.action === fila[fila.length - 2].mensagem.action
+        let deltaTempo = fila[fila.length - 1].data - fila[fila.length - 2].data
+        if (acaoIgual && deltaTempo < 4000){
+            fila=[];
+            console.log("Ignorando duplicidade...");
+            return;
+        }
+    }
+
+    if ( topico==="zigbee2mqtt/Cubo" ){
         if ( mensagem.action === "shake"){
             console.log("shake");
+            //sshMandarVoz("Foi!");
         }
-    }*/
+    }
     if ( topico==="zigbee2mqtt/heimdall" ){
         if ( mensagem.action === "manual_unlock"){
         }
