@@ -10,6 +10,7 @@ var UsuariosIDs = {
     4: "Edson",
     6: "Anderson",
     7: "Adriana",
+    8: "Lucas",
     10: "Mariana",
     11: "Vitória",
 };
@@ -53,7 +54,8 @@ function sshMandarVoz(mensagemVoz){
     const conn = new Client();
     conn.on('ready', () => {
       console.log('Client :: ready');
-      conn.exec(`sleep 1.8 && espeak -k -50 -vpt-br '${mensagemVoz}'`, (err, stream) => {
+      //conn.exec(`speak-ng -v mb/mb-br1 -s 124 -a 200 'Teste!'`, (err, stream) => {
+      conn.exec(`sleep 1.8 && espeak -k -20 -vpt-br '${mensagemVoz}'`, (err, stream) => {
         if (err) throw err;
         stream.on('close', (code, signal) => {
           console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
@@ -79,7 +81,7 @@ function sshMandarVoz(mensagemVoz){
 function sshMandarVoz2(mensagemVoz){
     const conn = new Client();
     conn.on('ready', function(err) {
-        conn.exec(`sleep 1.8 && espeak -k -50 -vpt-br '${mensagemVoz}'`, (err, stream) => {
+        conn.exec(`sleep 1.8 && espeak -k -20 -vpt-br '${mensagemVoz}'`, (err, stream) => {
             if (err) return done(err);
             var result;
             stream.on('close', function(code, signal) {
