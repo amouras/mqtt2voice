@@ -8,9 +8,10 @@ var UsuariosIDs = {
     2: "Alexsandra",
     3: "Pâmela",
     4: "Edson",
+    5: "Suêênia",
     6: "Anderson",
     7: "Adriana",
-    8: "Lucas",
+    8: "Lucasss",
     10: "Mariana",
     11: "Vitória",
 };
