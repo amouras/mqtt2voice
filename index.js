@@ -18,16 +18,16 @@ var UsuariosIDs = {
 
 var DicaGeral = {
     0: "Atenção. Não esqueça de lavar bem as mãos.",
-    1: "     ",
+    1: "Atenção. Não esqueça de lavar bem as mãos.",
     2: "Nesse ambiente. Devemos usar máscaras.",
     3: "Como está seu dia hoje? Espero que bem!",
-    4: "     ",
+    4: "Atenção. Não esqueça de lavar bem as mãos.",
     5: "Cuidado nas escadas hein!",
     6: "Você sabe usar um extintor? Pergunte para os responsáveis da empresa!",
-    7: "     ",
+    7: "Você sabia que precisamos de 30 segundos para lavar bem as mãos?",
     8: "Quando sair não esqueça de fechar a porta. Estamos em um mundo perigoso.",
     9: "Lá em cima devemos usar toucas!",
-    10: "     ",
+    10: "Atenção. Não esqueça de lavar bem as mãos.",
 };
 
 var Saudacoes = {
