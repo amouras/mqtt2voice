@@ -16,6 +16,20 @@ var UsuariosIDs = {
     11: "Vitória",
 };
 
+var DicaGeral = {
+    0: "Atenção. Não esqueça de lavar bem as mãos.",
+    1: "     ",
+    2: "Nesse ambiente. Devemos usar máscaras.",
+    3: "Como está seu dia hoje? Espero que bem!",
+    4: "     ",
+    5: "Cuidado nas escadas hein!",
+    6: "Você sabe usar um extintor? Pergunte para os responsáveis da empresa!",
+    7: "     ",
+    8: "Quando sair não esqueça de fechar a porta. Estamos em um mundo perigoso.",
+    9: "Lá em cima devemos usar toucas!",
+    10: "     ",
+};
+
 var Saudacoes = {
     0: "Beleza?",
     1: "Olá!",
@@ -36,6 +50,11 @@ function getSaudacao() {
 
 function getValue(key) {
     return UsuariosIDs[key]===undefined ? "" : UsuariosIDs[key];
+}
+
+function getDicaGeral() {
+    const rand = (Math.floor(Math.random() * 10));
+    return DicaGeral[rand]===undefined ? "" : DicaGeral[rand];
 }
 
 var client = mqtt.connect('mqtt://10.0.68.101:1883');
@@ -133,19 +152,23 @@ function tratarTopicoMensagem(topico, mensagem){
             let mensagemUnlok = "Porta destrancada.";
             usuario = getValue(mensagem.action_user);
             if (mensagem.action_user === 0) return;
-            sshMandarVoz(mensagemUnlok + " " + getSaudacao() + " " + usuario + ". " + getSaudacaoFinal());
-            console.log(mensagemUnlok + " " + getSaudacao() + " " + usuario + ". " + getSaudacaoFinal());
+            sshMandarVoz(mensagemUnlok + " " + getSaudacao() + " " + usuario + ". " + getSaudacaoFinal() + " " + getDicaGeral());
+            console.log(mensagemUnlok + " " + getSaudacao() + " " + usuario + ". " + getSaudacaoFinal() + " " + getDicaGeral());
         }
     }
 }
 
 function getSaudacaoFinal(){
     const hora = new Date().getHours();
+    let saudacao = "";
     if (hora >= 0 && hora < 12) {
-      return "Bom dia!";
+        saudacao = (new Date().getSeconds() % 2 === 0) ? "Bom dia!" : "Buénas!";
+        return saudacao;
     } else if (hora >= 12 && hora < 18) {
-      return "Boa tarde!";
+        saudacao = (new Date().getSeconds() % 2 === 0) ? "Boa tarde!" : "Táarde!";
+        return saudacao;
     } else {
-      return "Boa noite!";
+        saudacao = (new Date().getSeconds() % 2 === 0) ? "Boa Noite!" : "Buenas Noches!";
+        return saudacao;
     }
 }
