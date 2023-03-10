@@ -152,8 +152,8 @@ function tratarTopicoMensagem(topico, mensagem){
             let mensagemUnlok = "Porta destrancada.";
             usuario = getValue(mensagem.action_user);
             if (mensagem.action_user === 0) return;
-            sshMandarVoz(mensagemUnlok + " " + getSaudacao() + " " + usuario + ". " + getSaudacaoFinal() + " " + getDicaGeral());
-            console.log(mensagemUnlok + " " + getSaudacao() + " " + usuario + ". " + getSaudacaoFinal() + " " + getDicaGeral());
+            sshMandarVoz(mensagemUnlok + " " + getSaudacao() + " " + usuario + ". " + getSaudacaoFinal());
+            console.log(mensagemUnlok + " " + getSaudacao() + " " + usuario + ". " + getSaudacaoFinal());
         }
     }
 }
